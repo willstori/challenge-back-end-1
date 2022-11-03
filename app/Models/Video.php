@@ -11,6 +11,12 @@ class Video extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'titulo', 'descricao', 'url'];
+    protected $fillable = ['id', 'categoriaId', 'titulo', 'descricao', 'url'];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoriaId', 'id');
+    }
+
 
 }

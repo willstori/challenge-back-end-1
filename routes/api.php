@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/categorias', [CategoriaController::class, "index"]);
+Route::get('/categorias/{id}', [CategoriaController::class, "show"]);
+Route::get('/categorias/{id}/videos', [CategoriaController::class, "videos"]);
+Route::post('/categorias', [CategoriaController::class, "store"]);
+Route::put('/categorias/{id}', [CategoriaController::class, "update"]);
+Route::delete('/categorias/{id}', [CategoriaController::class, "destroy"]);
 
 Route::get('/videos', [VideoController::class, "index"]);
 Route::get('/videos/{id}', [VideoController::class, "show"]);

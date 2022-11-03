@@ -4,13 +4,20 @@ namespace App\Services;
 
 use App\Models\Video;
 use App\Services\IVideoService;
-use Illuminate\Http\Request;
 
 class VideoService implements IVideoService
 {
-    public function list()
+    public const LIVRE = 1;
+
+    public function list(string $search = null)
     {
-        $videos = Video::all();
+        $query = Video::query();
+
+        if(!empty($search)){
+            $query->where('titulo', 'LIKE', '%'.$search.'%');
+        }
+
+        $videos = $query->get();
 
         return [
             'videos' => $videos,
@@ -36,11 +43,17 @@ class VideoService implements IVideoService
         ];
     }
 
-    public function store(Request $request)
+    public function store(array $requestData)
     {
-        $video = $request->all();
+        $video = new Video();
 
-        Video::create($video);
+        $video->fill($requestData);
+
+        if (!isset($requestData['categoriaId']) || empty($requestData['categoriaId'])) {
+            $video->categoriaId = VideoService::LIVRE;
+        }
+
+        $video->save();
 
         return [
             'video' => $video,
@@ -48,7 +61,7 @@ class VideoService implements IVideoService
         ];
     }
 
-    public function update(Request $request, $id)
+    public function update(array $requestData, int $id)
     {
         $video = Video::find($id);
 
@@ -59,7 +72,7 @@ class VideoService implements IVideoService
             ];
         }
 
-        $video->update($request->all());
+        $video->update($requestData);
 
         return [
             'video' => $video,
@@ -67,7 +80,7 @@ class VideoService implements IVideoService
         ];
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $video = Video::find($id);
 

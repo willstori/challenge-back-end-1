@@ -15,9 +15,11 @@ class VideoController extends Controller
         $this->videoService = $videoService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $response = $this->videoService->list();
+        $search = $request->search;
+
+        $response = $this->videoService->list($search);
 
         return response()->json($response['videos'], $response['status']);
     }
@@ -32,6 +34,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'categoriaId' => ['nullable', 'integer', 'exists:categorias,id'],
             'titulo' => ['required'],
             'descricao' => ['required'],
             'url' => ['required', 'url']
@@ -41,7 +44,7 @@ class VideoController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $response = $this->videoService->store($request);
+        $response = $this->videoService->store($request->all());
 
         return response()->json($response['video'], $response['status']);
     }
@@ -49,6 +52,7 @@ class VideoController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'categoriaId' => ['nullable', 'integer', 'exists:categorias,id'],
             'titulo' => ['required'],
             'descricao' => ['required'],
             'url' => ['required', 'url']
@@ -58,7 +62,7 @@ class VideoController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $response = $this->videoService->update($request, $id);
+        $response = $this->videoService->update($request->all(), $id);
 
         return response()->json($response['video'], $response['status']);
     }

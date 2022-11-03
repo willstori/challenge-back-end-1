@@ -2,16 +2,29 @@
 
 namespace Tests\Feature;
 
+use App\Models\Categoria;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class VideoTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+    }
+
     public function testCadastroDeVideo()
     {
+        $lastCategoria = Categoria::all()->last();
+
         $videoRequest = [
+            'categoriaId' => $lastCategoria->id,
             'titulo' => "Vídeo 1",
             'descricao' => "Teste de cadastro de vídeo.",
             'url' => "https://youtu.be/31ljFqO6kZQ"
@@ -25,6 +38,7 @@ class VideoTest extends TestCase
     public function testCadastroDeVideoVazio()
     {
         $videoRequest = [
+            'categoriaId' => "",
             'titulo' => "",
             'descricao' => "",
             'url' => ""
@@ -37,6 +51,15 @@ class VideoTest extends TestCase
 
     public function testListagemDeVideos()
     {
+        $lastCategoria = Categoria::all()->last();
+
+        Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
+
         $response = $this->get('/videos');
 
         $response->assertOk();
@@ -44,9 +67,16 @@ class VideoTest extends TestCase
 
     public function testListagemDeVideoPorId()
     {
-        $lastVideo = Video::all()->last();
+        $lastCategoria = Categoria::all()->last();
 
-        $response = $this->get('/videos/' . $lastVideo->id);
+        $video = Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
+
+        $response = $this->get('/videos/' . $video->id);
 
         $response->assertOk();
     }
@@ -60,40 +90,66 @@ class VideoTest extends TestCase
 
     public function testAlteracaoDeVideo()
     {
-        $lastVideo = Video::all()->last();
+        $lastCategoria = Categoria::all()->last();
+
+        $video = Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
 
         $videoRequest = [
-            'titulo' => "Vídeo 2 Alterado",
-            'descricao' => "Teste de cadastro de vídeo. Alterado",
-            'url' => "https://youtu.be/31ljFqO6kZQ"
+            'categoriaId' => $video->categoriaId,
+            'titulo' => $video->titulo . "_alterado",
+            'descricao' => $video->descricao . "_alterado",
+            'url' => $video->url . "_alterado"
         ];
 
-        $response = $this->put('/videos/' . $lastVideo->id, $videoRequest);
+        $response = $this->put('/videos/' . $video->id, $videoRequest);
 
         $response->assertOk();
     }
 
     public function testAlteracaoDeVideoVazio()
     {
-        $lastVideo = Video::all()->last();
+        $lastCategoria = Categoria::all()->last();
+
+        $video = Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
 
         $videoRequest = [
+            'categoriaId' => "",
             'titulo' => "",
             'descricao' => "",
             'url' => ""
         ];
 
-        $response = $this->put('/videos/' . $lastVideo->id, $videoRequest);
+        $response = $this->put('/videos/' . $video->id, $videoRequest);
 
         $response->assertUnprocessable();
     }
 
     public function testAlteracaoDeVideoInexistente()
     {
+        $lastCategoria = Categoria::all()->last();
+
+        $video = Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
+
         $videoRequest = [
-            'titulo' => "Vídeo 2 Alterado",
-            'descricao' => "Teste de cadastro de vídeo. Alterado",
-            'url' => "https://youtu.be/31ljFqO6kZQ"
+            'categoriaId' => $video->categoriaId,
+            'titulo' => $video->titulo,
+            'descricao' => $video->descricao,
+            'url' => $video->url
         ];
 
         $response = $this->put('/videos/-1', $videoRequest);
@@ -103,9 +159,16 @@ class VideoTest extends TestCase
 
     public function testExclusaoDeVideo()
     {
-        $lastVideo = Video::all()->last();
+        $lastCategoria = Categoria::all()->last();
 
-        $response = $this->delete('/videos/' . $lastVideo->id);
+        $video = Video::create([
+            'categoriaId' => $lastCategoria->id,
+            'titulo' => 'Vid_' . Str::random(14),
+            'descricao' => 'Vid_' . Str::random(14),
+            'url' => 'http://video-url.com',
+        ]);
+
+        $response = $this->delete('/videos/' . $video->id);
 
         $response->assertOk();
     }

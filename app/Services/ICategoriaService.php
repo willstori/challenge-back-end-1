@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
-interface IVideoService
+interface ICategoriaService
 {
-    public function list(string $search = "");
+    public function list();
 
     public function get(int $id);
+
+    public function videos(int $id);
 
     public function store(array $requestData);
 
