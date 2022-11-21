@@ -61,7 +61,7 @@ http://localhost/categorias?api_token=KWeLeFatUzFVif1NOWgDeEDinxvvfAKUOyUvCzzhMh
 
 **GET** /categorias --- Retorna a lista de todas as categorias.
 **Parametros:** Nenhum.
-Resposta: Lista de todas as categorias.
+**Resposta:** Lista de todas as categorias.
 
 **GET** /categorias/{id} --- Retorna apenas uma categoria.
 **Parametros:** {id : "int}"
