@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Services\ICategoriaService;
 use App\Services\CategoriaService;
+use App\Services\IUserService;
 use App\Services\IVideoService;
+use App\Services\UserService;
 use App\Services\VideoService;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ICategoriaService::class, CategoriaService::class);
         $this->app->bind(IVideoService::class, VideoService::class);
+        $this->app->bind(IUserService::class, UserService::class);
     }
 
     /**
