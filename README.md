@@ -59,70 +59,70 @@ http://localhost/categorias?api_token=KWeLeFatUzFVif1NOWgDeEDinxvvfAKUOyUvCzzhMh
 
 ## Categorias
 
-**GET** /categorias --- Retorna a lista de todas as categorias.
-**Parametros:** Nenhum.
-**Resposta:** Lista de todas as categorias.
+**GET** /categorias --- Retorna a lista de todas as categorias.  
+**Parametros:** Nenhum.  
+**Resposta:** Lista de todas as categorias.  
 
-**GET** /categorias/{id} --- Retorna apenas uma categoria.
-**Parametros:** {id : "int}"
-**Resposta:** {id: "int", titulo : "string", cor : "string"}
+**GET** /categorias/{id} --- Retorna apenas uma categoria.  
+**Parametros:** {id : "int"}  
+**Resposta:** {id: "int", titulo : "string", cor : "string"}  
 
-**GET** /categorias/{id}/videos --- Retorna uma lista de vídeos por categoria.
-**Parametros:** {id: "int"}
-**Resposta:** [{id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}]
+**GET** /categorias/{id}/videos --- Retorna uma lista de vídeos por categoria.  
+**Parametros:** {id: "int"}  
+**Resposta:** [{id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}]  
 
-**POST** /categorias --- Cadastra uma nova categoria.
-**Parametros:** {titulo : "string", cor : "string"}
-**Resposta:** {id : "int", titulo : "string", cor : "string"}
+**POST** /categorias --- Cadastra uma nova categoria.  
+**Parametros:** {titulo : "string", cor : "string"}  
+**Resposta:** {id : "int", titulo : "string", cor : "string"}  
 
-**PUT** /categorias/{id} --- Altera uma categoria.
-**Parametros:** {id : "int", titulo : "string", cor : "string"}
-**Resposta:** {id : "int", titulo : "string", cor : "string"}
+**PUT** /categorias/{id} --- Altera uma categoria.  
+**Parametros:** {id : "int", titulo : "string", cor : "string"}  
+**Resposta:** {id : "int", titulo : "string", cor : "string"}  
 
-**DELETE** /categorias/{id} --- Remove uma categoria.
-**Parametros:** {id : "int"}
-**Resposta:** {mensagem : "string"}
+**DELETE** /categorias/{id} --- Remove uma categoria.  
+**Parametros:** {id : "int"}  
+**Resposta:** {mensagem : "string"}  
 
 ## Vídeos
 
-**GET** /videos?search=sua_busca --- Retorna a lista de todos os vídeos ou filtrando por título.
-**Parametros:** {search : "string"}
-**Resposta:** [{id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}]
+**GET** /videos?search=sua_busca --- Retorna a lista de todos os vídeos ou filtrando por título.  
+**Parametros:** {search : "string"}  
+**Resposta:** [{id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}]  
 
-**GET** /videos --- Retorna apenas um vídeo.
-**Parametros:** {id : "int"}
-**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}
+**GET** /videos --- Retorna apenas um vídeo.  
+**Parametros:** {id : "int"}  
+**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}  
 
-**POST** /videos --- Cadastra um novo vídeo.
-**Parametros:** {categoriaId : "int", titulo : "string", descricao : "string", url : "string"}
-**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}
+**POST** /videos --- Cadastra um novo vídeo.  
+**Parametros:** {categoriaId : "int", titulo : "string", descricao : "string", url : "string"}  
+**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}  
 
-**PUT** /videos --- Altera um vídeo.
-**Parametros:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}
-**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}
+**PUT** /videos --- Altera um vídeo.  
+**Parametros:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}  
+**Resposta:** {id : "int", categoriaId : "int", titulo : "string", descricao : "string", url : "string"}  
 
-**DELETE** /videos/{id} --- Remove um vídeo.
-**Parametros:** {id : "int"}
-**Resposta:** {mensagem : "string"}
+**DELETE** /videos/{id} --- Remove um vídeo.  
+**Parametros:** {id : "int"}  
+**Resposta:** {mensagem : "string"}  
 
 ## Usuários
 
-**POST** /usuarios --- Cadastra um novo usuário.
-**Parametros:** {nome : "string", email : "string", senha : "string"}
-**Resposta:** {id : "int", nome : "string", email : "string", senha : "string"}
+**POST** /usuarios --- Cadastra um novo usuário.  
+**Parametros:** {nome : "string", email : "string", senha : "string"}  
+**Resposta:** {id : "int", nome : "string", email : "string", senha : "string"}  
 
-**PUT** /usuarios/{id} --- Altera um usuário.
-**Parametros:** {id : "int", nome : "string", email : "string"}
-**Resposta:** {id : "int", nome : "string", email : "string"}
+**PUT** /usuarios/{id} --- Altera um usuário.  
+**Parametros:** {id : "int", nome : "string", email : "string"}  
+**Resposta:** {id : "int", nome : "string", email : "string"}  
 
-**PUT** /usuarios/alterar-senha/{id} --- Altera a senha de um usuário.
-**Parametros:** {id : "int", senha : "string"}
-**Resposta:** {id : "int", nome : "string", email : "string", senha : "string"}
+**PUT** /usuarios/alterar-senha/{id} --- Altera a senha de um usuário.  
+**Parametros:** {id : "int", senha : "string"}  
+**Resposta:** {id : "int", nome : "string", email : "string", senha : "string"}  
 
-**PUT** /usuarios/alterar-token/{id} --- Altera o token de um usuário.
-**Parametros:** {id : "int"}
-**Resposta:** {token : "string"}
+**PUT** /usuarios/alterar-token/{id} --- Altera o token de um usuário.  
+**Parametros:** {id : "int"}  
+**Resposta:** {token : "string"}  
 
-**DELETE** /usuarios/{id} --- Remove um usuário.
-**Parametros:** {id : "int"}
-**Resposta:** {mensagem : "string"}
+**DELETE** /usuarios/{id} --- Remove um usuário.  
+**Parametros:** {id : "int"}  
+**Resposta:** {mensagem : "string"}  
